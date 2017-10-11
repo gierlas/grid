@@ -1,0 +1,34 @@
+{
+    "name": "kora/grid",
+    "description": "Grid system",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pawel Gierlasinski",
+            "email": "gierlasinski.pawel@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kora\\Grid\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/gierlas/data-provider"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "kora/data-provider": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3",
+        "mockery/mockery": "^0.9.9"
+    }
+}
