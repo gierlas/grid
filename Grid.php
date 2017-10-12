@@ -3,16 +3,10 @@
 namespace Kora\Grid;
 
 use Kora\DataProvider\DataProviderInterface;
-use Kora\DataProvider\DataProviderManager;
 use Kora\DataProvider\DataProviderOperatorsSetup;
 use Kora\DataProvider\Result;
-use Kora\Grid\FormBuilder\FormBuilder;
 use Kora\Grid\ResultDisplay\Column;
 use Kora\Grid\ResultDisplay\ResultDisplay;
-use Kora\DataProvider\OperatorDefinition\FilterOperatorDefinitionInterface;
-use Kora\DataProvider\OperatorDefinition\OrderOperatorDefinitionInterface;
-use Kora\DataProvider\OperatorDefinition\PagerOperatorDefinitionInterface;
-use Symfony\Component\Form\FormInterface;
 
 
 /**

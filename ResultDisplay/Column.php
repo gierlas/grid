@@ -56,9 +56,9 @@ class Column
 
 	/**
 	 * Column constructor.
-	 * @param string $name
-	 * @param string|null   $type
-	 * @param array  $extraConfig
+	 * @param string      $name
+	 * @param string|null $type
+	 * @param array       $extraConfig
 	 */
 	public function __construct(string $name, $type = null, array $extraConfig = [])
 	{
@@ -211,8 +211,8 @@ class Column
 	}
 
 	/**
-	 * @param string $key
-	 * @param null   $default
+	 * @param string     $key
+	 * @param mixed|null $default
 	 * @return mixed|null
 	 */
 	public function getExtraConfigPart(string $key, $default = null)
@@ -245,7 +245,7 @@ class Column
 	 */
 	public function getValue($source)
 	{
-		if($this->valueGetter === null) return null;
+		if ($this->valueGetter === null) return null;
 
 		$value = call_user_func($this->valueGetter, $source);
 

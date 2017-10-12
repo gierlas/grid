@@ -29,13 +29,13 @@ class ObjectDataAccessor implements DataAccessorInterface
 	 */
 	public function getDataRecursive(array $nodes, $source)
 	{
-		if(empty($nodes)) return $source;
+		if (empty($nodes)) return $source;
 
-		if(is_object($source) && !$source instanceof \ArrayAccess) {
+		if (is_object($source) && !$source instanceof \ArrayAccess) {
 			return $this->handleObject($nodes, $source);
 		}
 
-		if(is_array($source)) {
+		if (is_array($source)) {
 			return $this->handleArray($nodes, $source);
 		}
 	}
@@ -43,19 +43,19 @@ class ObjectDataAccessor implements DataAccessorInterface
 	/**
 	 * @param array $nodes
 	 * @param       $source
-	 * @return mixed
+	 * @return mixed|null
 	 */
 	protected function handleObject(array $nodes, $source)
 	{
 		$currentNode = array_shift($nodes);
 
 		$reflectionClass = null;
-		if(!($source instanceof \stdClass)) {
+		if (!($source instanceof \stdClass)) {
 			$reflectionClass = new \ReflectionClass($source);
 		}
 
 		$getter = 'get' . ucfirst($currentNode);
-		if(
+		if (
 			method_exists($source, $getter) //stdClass
 			&& (!$reflectionClass || $reflectionClass->getMethod($getter)->isPublic()) //If object is not stdClass check accessibility
 		) {
@@ -63,7 +63,7 @@ class ObjectDataAccessor implements DataAccessorInterface
 			return $this->getDataRecursive($nodes, $value);
 		}
 
-		if(
+		if (
 			property_exists($source, $currentNode) //stdClass
 			&& (!$reflectionClass || $reflectionClass->getProperty($currentNode)->isPublic()) //If object is not stdClass check accessibility
 		) {
@@ -77,13 +77,13 @@ class ObjectDataAccessor implements DataAccessorInterface
 	/**
 	 * @param array $nodes
 	 * @param       $source
-	 * @return mixed
+	 * @return mixed|null
 	 */
 	protected function handleArray(array $nodes, $source)
 	{
 		$currentNode = array_shift($nodes);
 
-		if(isset($source[$currentNode])){
+		if (isset($source[$currentNode])) {
 			return $this->getDataRecursive($nodes, $source[$currentNode]);
 		}
 
