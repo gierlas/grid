@@ -15,6 +15,16 @@ class Column
 	protected $name;
 
 	/**
+	 * @var string|null
+	 */
+	private $type;
+
+	/**
+	 * @var array
+	 */
+	protected $extraConfig;
+
+	/**
 	 * @var string
 	 */
 	protected $label;
@@ -45,18 +55,15 @@ class Column
 	protected $shouldDisplayCallback;
 
 	/**
-	 * @var array
-	 */
-	protected $extraConfig;
-
-	/**
 	 * Column constructor.
 	 * @param string $name
+	 * @param string|null   $type
 	 * @param array  $extraConfig
 	 */
-	public function __construct(string $name, array $extraConfig = [])
+	public function __construct(string $name, $type = null, array $extraConfig = [])
 	{
 		$this->name = $name;
+		$this->type = $type;
 		$this->extraConfig = $extraConfig;
 	}
 
@@ -66,6 +73,24 @@ class Column
 	public function getName(): string
 	{
 		return $this->name;
+	}
+
+	/**
+	 * @return null|string
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * @param null|string $type
+	 * @return Column
+	 */
+	public function setType($type): Column
+	{
+		$this->type = $type;
+		return $this;
 	}
 
 	/**
@@ -87,6 +112,14 @@ class Column
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isSortable(): bool
+	{
+		return $this->sortable;
+	}
+
+	/**
 	 * @param bool $isSortable
 	 * @return Column
 	 */
@@ -94,14 +127,6 @@ class Column
 	{
 		$this->sortable = $isSortable;
 		return $this;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isSortable(): bool
-	{
-		return $this->sortable;
 	}
 
 	/**
