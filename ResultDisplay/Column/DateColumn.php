@@ -36,6 +36,8 @@ class DateColumn extends Column
 	protected function init()
 	{
 		$this->valueFormatter = function ($value) {
+			if(empty($value)) return null;
+
 			if($value instanceof \DateTime) {
 				return $value->format($this->format);
 			}
