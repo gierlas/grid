@@ -28,7 +28,7 @@ class ObjectDataAccessor implements DataAccessorInterface
 	 */
 	public function getData(string $path, $source)
 	{
-		if(isset($this->mapping[$path])) {
+		if (isset($this->mapping[$path])) {
 			$path = $this->mapping[$path];
 		}
 
@@ -63,29 +63,42 @@ class ObjectDataAccessor implements DataAccessorInterface
 	{
 		$currentNode = array_shift($nodes);
 
-		$reflectionClass = null;
-		if (!($source instanceof \stdClass)) {
-			$reflectionClass = new \ReflectionClass($source);
-		}
+		$reflectionClass = !($source instanceof \stdClass) ? new \ReflectionClass($source) : null;
 
 		$getter = 'get' . ucfirst($currentNode);
-		if (
-			method_exists($source, $getter) //stdClass
-			&& (!$reflectionClass || $reflectionClass->getMethod($getter)->isPublic()) //If object is not stdClass check accessibility
-		) {
+		if ($this->isMethodAccessible($getter, $source, $reflectionClass)) {
 			$value = $source->{$getter}();
-			return $this->getDataRecursive($nodes, $value);
-		}
-
-		if (
-			property_exists($source, $currentNode) //stdClass
-			&& (!$reflectionClass || $reflectionClass->getProperty($currentNode)->isPublic()) //If object is not stdClass check accessibility
-		) {
+		} else if ($this->isPropertyAccessible($currentNode, $source, $reflectionClass)) {
 			$value = $source->{$currentNode};
-			return $this->getDataRecursive($nodes, $value);
+		} else {
+			return null;
 		}
 
-		return null;
+		return $this->getDataRecursive($nodes, $value);
+	}
+
+	/**
+	 * @param string $method
+	 * @param        $source
+	 * @param        $reflectionClass
+	 * @return bool
+	 */
+	protected function isMethodAccessible(string $method, $source, $reflectionClass): bool
+	{
+		return method_exists($source, $method) //stdClass
+			&& (!$reflectionClass || $reflectionClass->getMethod($method)->isPublic()); //If object is not stdClass check accessibility
+	}
+
+	/**
+	 * @param string $property
+	 * @param        $source
+	 * @param        $reflectionClass
+	 * @return bool
+	 */
+	protected function isPropertyAccessible(string $property, $source, $reflectionClass): bool
+	{
+		return property_exists($source, $property) //stdClass
+			&& (!$reflectionClass || $reflectionClass->getProperty($property)->isPublic()); //If object is not stdClass check accessibility
 	}
 
 	/**
