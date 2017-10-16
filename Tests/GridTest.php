@@ -3,6 +3,7 @@
 namespace Kora\Grid\Tests;
 
 use Kora\DataProvider\DataProviderInterface;
+use Kora\DataProvider\Mapper;
 use Kora\DataProvider\OperatorDefinition\OrderOperatorDefinitionInterface;
 use Kora\DataProvider\Result;
 use Kora\Grid\FormBuilder\FormBuilder;
@@ -47,8 +48,8 @@ class GridTest extends TestCase
 			->once();
 
 		$dataProvider
-			->shouldReceive('getMapping')
-			->andReturn([])
+			->shouldReceive('getMapper')
+			->andReturn(new Mapper())
 			->once();
 
 		$grid

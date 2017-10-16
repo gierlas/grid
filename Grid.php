@@ -71,7 +71,7 @@ class Grid extends DataProviderOperatorsSetup
 
 		$result = $dataProvider->fetchData($this);
 
-		$this->resultDisplay->getDataAccessor()->setMapping($dataProvider->getMapping());
+		$this->resultDisplay->getDataAccessor()->setMapping($dataProvider->getMapper()->getColumnMap());
 		$this->resultDisplay->setResult($result);
 
 		return $result;
