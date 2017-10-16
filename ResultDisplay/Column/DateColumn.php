@@ -18,10 +18,10 @@ class DateColumn extends Column
 
 	/**
 	 * DateColumn constructor.
-	 * @param string $name
-	 * @param string $format
-	 * @param null   $type
-	 * @param array  $extraConfig
+	 * @param string      $name
+	 * @param string      $format
+	 * @param string|null $type
+	 * @param array       $extraConfig
 	 */
 	public function __construct($name, string $format = 'Y-m-d', $type = null, array $extraConfig = [])
 	{
@@ -36,13 +36,13 @@ class DateColumn extends Column
 	protected function init()
 	{
 		$this->valueFormatter = function ($value) {
-			if(empty($value)) return null;
+			if (empty($value)) return null;
 
-			if($value instanceof \DateTime) {
+			if ($value instanceof \DateTime) {
 				return $value->format($this->format);
 			}
 
-			if(is_string($value)) {
+			if (is_string($value)) {
 				$dateTimeObject = new \DateTime($value);
 				return $dateTimeObject->format($this->format);
 			}

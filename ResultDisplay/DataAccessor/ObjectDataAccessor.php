@@ -110,10 +110,8 @@ class ObjectDataAccessor implements DataAccessorInterface
 	{
 		$currentNode = array_shift($nodes);
 
-		if (isset($source[$currentNode])) {
-			return $this->getDataRecursive($nodes, $source[$currentNode]);
-		}
-
-		return null;
+		return isset($source[$currentNode])
+			? $this->getDataRecursive($nodes, $source[$currentNode])
+			: null;
 	}
 }
