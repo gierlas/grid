@@ -11,6 +11,16 @@ use Kora\Grid\ResultDisplay\DataAccessorInterface;
  */
 class ObjectDataAccessor implements DataAccessorInterface
 {
+	protected $mapping = [];
+
+	/**
+	 * @param array $mapping
+	 */
+	public function setMapping(array $mapping)
+	{
+		$this->mapping = $mapping;
+	}
+
 	/**
 	 * @param string $path
 	 * @param        $source
@@ -18,6 +28,10 @@ class ObjectDataAccessor implements DataAccessorInterface
 	 */
 	public function getData(string $path, $source)
 	{
+		if(isset($this->mapping[$path])) {
+			$path = $this->mapping[$path];
+		}
+
 		$nodes = explode('.', $path);
 		return $this->getDataRecursive($nodes, $source);
 	}

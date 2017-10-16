@@ -46,6 +46,11 @@ class GridTest extends TestCase
 			->andReturn(m::mock(Result::class))
 			->once();
 
+		$dataProvider
+			->shouldReceive('getMapping')
+			->andReturn([])
+			->once();
+
 		$grid
 			->shouldReceive('setData')
 			->with($params)

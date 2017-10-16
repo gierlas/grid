@@ -9,5 +9,15 @@ namespace Kora\Grid\ResultDisplay;
  */
 interface DataAccessorInterface
 {
+	/**
+	 * @param array $mapping
+	 */
+	public function setMapping(array $mapping);
+
+	/**
+	 * @param string $path
+	 * @param        $source
+	 * @return mixed
+	 */
 	public function getData(string $path, $source);
 }

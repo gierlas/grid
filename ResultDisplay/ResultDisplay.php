@@ -18,7 +18,7 @@ class ResultDisplay
 	protected $result;
 
 	/**
-	 * @var ObjectDataAccessor
+	 * @var DataAccessorInterface
 	 */
 	protected $dataAccessor;
 
@@ -90,6 +90,14 @@ class ResultDisplay
 	public function getColumns(): array
 	{
 		return $this->columns;
+	}
+
+	/**
+	 * @return DataAccessorInterface
+	 */
+	public function getDataAccessor(): DataAccessorInterface
+	{
+		return $this->dataAccessor;
 	}
 
 	/**
